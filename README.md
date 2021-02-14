@@ -20,3 +20,5 @@ https://soundcloud.com/ashrichardson/data-science-mix
 ## matrix of correlation between the tracks
 <img src="grid.png" width="650">
 
+## clips aligned for correlation on 3.78s window
+<img src="correlation.png" width="650">
