@@ -9,7 +9,6 @@ Taking a number of techno tracks, we:
 Five hours of high-energy music for long coding or study sessions:
 https://soundcloud.com/ashrichardson/data-science-mix
 
-Incidentally, it seems the track (a wav file over 3 GB) broke soundcloud's waveform visualization. Fortunately soundcloud allowed us to upload the file, alas the waveform vis generation seems to have failed since a default pattern appeared:
 <img src="soundcloud.png" width="650">
 
 ## findings
