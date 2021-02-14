@@ -22,3 +22,10 @@ https://soundcloud.com/ashrichardson/data-science-mix
 
 ## clips aligned for correlation on 3.78s window
 <img src="correlation.png" width="650">
+
+## files:
+* adjust_bpm.py: tempo normalizing
+* adjust_rate.py adjust sample rate
+* dot.py calculate correlations between tracks
+* read.py use between-tracks correlation to establish ordering. Then locally align transitions and interpolate
+* cat.py put the track segments and transitions together into one file
