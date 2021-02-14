@@ -7,5 +7,5 @@ Taking a number of techno tracks, we:
 ## result
 Five hours of high-energy music for long coding or study sessions:
 https://soundcloud.com/ashrichardson/data-science-mix
-## the correlation between techno tracks
+## matrix of correlation between the tracks
 <img src="grid.png" width="650">
