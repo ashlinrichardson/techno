@@ -12,6 +12,12 @@ https://soundcloud.com/ashrichardson/data-science-mix
 Incidentally, it seems the track (a wav file over 3 GB) broke soundcloud's waveform visualization. Fortunately soundcloud allowed us to upload the file, alas the waveform vis generation seems to have failed since a default pattern appeared:
 <img src="soundcloud.png" width="650">
 
+## findings
+* Correlation can be used to align techno clips of same tempo for a smooth transition
+* Correlation does not take bar lines or counts into account
+* Can get wrong answers like being half a beat off!
+* More complex method required for reliability
+
 ## matrix of correlation between the tracks
 <img src="grid.png" width="650">
 
