@@ -8,7 +8,7 @@ Taking a number of techno tracks, we:
 
 (225 lines of python code..tested on Ubuntu)
 ## result
-Five hours of high-energy music for long coding or study sessions:
+Five hours of high-energy music for long coding, driving, sports or study sessions:
 https://soundcloud.com/ashrichardson/data-science-mix
 
 <img src="soundcloud.png" width="650">
