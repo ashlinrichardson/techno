@@ -85,8 +85,10 @@ for f in files:
     if not exists(wav_f3.strip('"')):
         run("soundstretch " + wav_f2 + " " + wav_f3 + " -bpm=" + str(bpm))
 
+# find pairwise correlations between tracks to be stitched
 run("python3 correlate.py " + wav_dir3)
 
+# determine ordering from pairwise correlations, then stitch using moving window technique
 run("python3 stitch.py " + wav_dir3)
 
 # last step: use sox to concatenate a list of wave files
