@@ -1,4 +1,4 @@
-bpm = 140
+bpm = 127
 import os
 import sys
 args = sys.argv
