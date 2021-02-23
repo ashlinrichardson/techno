@@ -2,6 +2,8 @@
 import os
 import sys
 
+n = 140 
+
 wavs = [x.strip() for x in os.popen("ls -1 *.wav").readlines()]
 
 def run(c):
@@ -11,4 +13,4 @@ def run(c):
 run("mkdir out")
 
 for w in wavs:
-	run("soundstretch " + '"' + w + '" out/"' + w + '" -bpm=127')
+	run("soundstretch " + '"' + w + '" out/"' + w + '" -bpm=' + str(n))

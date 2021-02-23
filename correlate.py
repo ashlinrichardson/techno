@@ -1,13 +1,34 @@
 # given a collection of wave files, produce a matrix of special correlations
+import os
+import sys
+import math
+import pickle
+
+if os.path.exists("grid.pickle"):
+    sys.exit(0)
+
+def run(cmd):
+    print(cmd)
+    a = os.system(cmd)
+    if a != 0:
+        print("Error: command failed: " + cmd)
+        sys.exit(1)
+
+try: import matplotlib.pyplot as plt
+except: run("python3 -m pip install matplotlib")
+
+try: import scipy
+except: run("python3 -m pip install scipy")
+
+try: import numpy
+except: run("python3 -m pip install numpy")
+
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
 import numpy as np
-import pickle
-import math
-import sys
-import os
 
-wavs = [x.strip() for x in os.popen("ls -1 *.wav").readlines()]
+args, sep = sys.argv, os.path.sep
+wavs = [x.strip() for x in os.popen("ls -1 " + args[1] + sep + "*.wav").readlines()]
 grid = np.zeros((len(wavs), len(wavs))) # output grid of correlations
 
 X = []
