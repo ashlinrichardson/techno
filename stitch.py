@@ -83,7 +83,7 @@ for i in range(len(visited) - 1):
     corr = np.zeros(math.floor(drag_width * samplerate))
 
     dx_max = 0 # shift for local alignment of clip
-    step = 10
+    step = 11
     for dx in range(1, math.floor(drag_width * samplerate), step): # should parallelize this part!
         if dx % 100 == 0:
             print(dx, "/", math.floor(drag_width * samplerate))
