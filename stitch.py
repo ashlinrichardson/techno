@@ -46,8 +46,7 @@ visited = [here]
 # print("here", here)
 # print("visited", visited)
 
-for i in range(N - 1): # find T[n+1]
-    # print(i, "here", here, "wavs", wavs[here])
+for i in range(N - 1): # find T[n+1] # print(i, "here", here, "wavs", wavs[here])
     while lookup[here][0][2] in visited:
         lookup[here] = lookup[here][1:]
     my_next = lookup[here][0][2]
@@ -57,31 +56,26 @@ for i in range(N - 1): # find T[n+1]
 print(visited)
 print(len(set(visited)))
 print(len(visited))
-
-for v in visited:
-    print('"' + wavs[v] + '"')
+for v in visited: print('"' + wavs[v] + '"')
 
 print("len(visited)", len(visited))
 if len(visited) != len(wavs):
-    print("err")
-    sys.exit(1)
+    print("err"); sys.exit(1)
 
-window_secs = 3.78 # window size for comparison
-drag_width = 20 #  3.78 * 4 # how far to drag the window!
+window_secs = 3.78  # window size for comparison: need to scale window size for bpm
+drag_width = 3.78 * 4  #  3.78 * 4 # how far to drag the window!
 
 start = 0
 data, data2, samplerate, samplerate2 = None, None, None, None
 for i in range(len(visited) - 1):
     j = visited[i]
     f = args[1] + sep + wavs[j] # filename of song to transition from
-    print("read[" + f + "]")
-    samplerate, data = wavfile.read(f)
+    print("read[" + f + "]"); samplerate, data = wavfile.read(f)
     L1 = data.shape[0]
 
     j = visited[i + 1]
     f = args[1] + sep + wavs[j] # filename of song to transition to!
-    print("read", f)
-    samplerate2, data2 = wavfile.read(f)
+    print("read", f); samplerate2, data2 = wavfile.read(f)
     L2 = data2.shape[0]
 
     print(L1, L2)
@@ -101,8 +95,8 @@ for i in range(len(visited) - 1):
     data_L = data[-( math.floor(samplerate * window_secs) + dx_max): - dx_max, :]
 
     if False:
-        plt.plot(data_L[:,0])
-        plt.plot(data_R[:,0])
+        plt.plot(data_L[:, 0])
+        plt.plot(data_R[:, 0])
 
     t = np.linspace(0., 1., data_L.shape[0])
     u = 1. - t
@@ -113,11 +107,10 @@ for i in range(len(visited) - 1):
     dataR = copy.deepcopy(data_R)
 
     for k in range(2): # perform the interpolation
-        dataL[:,k]= np.multiply(u, data_L[:,k])
-        dataR[:,k]= np.multiply(t, data_R[:,k])
+        dataL[:, k] = np.multiply(u, data_L[:,k])
+        dataR[:, k] = np.multiply(t, data_R[:,k])
 
-    out = dataL + dataR
-    # write("tmp.wav", samplerate, out.astype(np.int16))
+    out = dataL + dataR # write("tmp.wav", samplerate, out.astype(np.int16))
 
     # 1. write transition-from track (until transition)..
     to_xsition = data[start : -(math.floor(samplerate * window_secs) + dx_max), :]
