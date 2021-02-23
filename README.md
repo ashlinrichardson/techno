@@ -26,8 +26,12 @@ https://soundcloud.com/ashrichardson/data-science-mix
 <img src="correlation.png" width="650">
 
 ## files:
-* adjust_bpm.py: tempo normalizing
-* adjust_rate.py adjust sample rate
-* dot.py calculate correlations between tracks
-* read.py use between-tracks correlation to establish ordering. Then locally align transitions and interpolate
-* cat.py put the track segments and transitions together into one file
+* correlation.py calculate correlations between tracks
+* stitch.py use between-tracks correlation to establish ordering. Then locally align transitions and interpolate
+* robo_dj.py: this is the main subrouting
+
+## example usage (tested on Ubuntu and MacOS):
+```
+python3 robo_dj.py songs
+
+```
