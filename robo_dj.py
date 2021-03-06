@@ -1,6 +1,9 @@
-bpm = 127
+bpm = 127 # should have an arg for this!
+
 import os
 import sys
+from work_queue import work_queue
+
 args = sys.argv
 sep = os.path.sep
 exists = os.path.exists
@@ -52,6 +55,7 @@ def install(cmd): # install a terminal command
 for req in to_install: install(req)  # install required command
 
 # step one: convert to wav
+q = work_queue()
 wav_dir = args[1] + "_wav" + sep
 if not exists(wav_dir): os.mkdir(wav_dir)
 files = [x.strip() for x in os.popen("ls -1 " + args[1]).readlines()]
@@ -59,7 +63,8 @@ files = [x.strip() for x in os.popen("ls -1 " + args[1]).readlines()]
 for f in files: # convert each file to wav, if not already done!
     wav_f = '"' + wav_dir + f[:-3] + 'wav"'
     if not exists(wav_f.strip('"')):
-        run('ffmpeg -i "' + args[1] + sep + f + '" ' + wav_f)
+        q.add('ffmpeg -i "' + args[1] + sep + f + '" ' + wav_f)
+q.run()
 
 # step two: adjust rate
 wav_dir2 = args[1] + "_wav2" + sep
@@ -70,8 +75,8 @@ for f in files:
     wav_f2 = '"' + wav_dir2 + f[:-3] + 'wav"'
     print(wav_f, wav_f2)
     if not exists(wav_f2.strip('"')):
-        run("sox " + wav_f + ' -r 44100 -b 16 ' + wav_f2)
-
+        q.add("sox " + wav_f + ' -r 44100 -b 16 ' + wav_f2)
+q.run()
 
 # step three: adjust bpm
 wav_dir3 = args[1] + "_wav3" + sep
@@ -83,7 +88,8 @@ for f in files:
     print(wav_f2, wav_f3)
 
     if not exists(wav_f3.strip('"')):
-        run("soundstretch " + wav_f2 + " " + wav_f3 + " -bpm=" + str(bpm))
+        q.add("soundstretch " + wav_f2 + " " + wav_f3 + " -bpm=" + str(bpm))
+q.run()
 
 # find pairwise correlations between tracks to be stitched
 run("python3 correlate.py " + wav_dir3)
