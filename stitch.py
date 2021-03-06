@@ -133,4 +133,6 @@ for i in range(len(visited) - 1):
 
 file_list.write(("tmp_last.wav").encode())
 file_list.close()
+
+data2 = data2[start: , :]
 write("tmp_last.wav", samplerate, data2.astype(np.int16)) # write remainder of last track
