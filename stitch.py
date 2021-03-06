@@ -84,12 +84,37 @@ for i in range(len(visited) - 1):
     corr = np.zeros(math.floor(drag_width * samplerate))
 
     dx_max = 0 # shift for local alignment of clip
-    step = 11
+    step = 11 # step size for windowed search
+
+    '''
     for dx in range(1, math.floor(drag_width * samplerate), step): # should parallelize this part!
         if dx % 100 == 0:
             print(dx, "/", math.floor(drag_width * samplerate))
         data_L = data[-(math.floor(samplerate * window_secs) + dx): - dx, :]
         m = np.sum((np.dot(np.transpose(np.abs(data_L)), np.abs(data_R)))) # our correlation measure
+        corr[dx] = m
+        if m > dx_max:
+            dx_max = m  # find the max of the correlation measure
+
+    '''
+    rng = range(1, math.floor(drag_width * samplerate), step)
+
+    def calc_m(dx):
+        if dx % 100 == 0:
+            print(dx, "/", math.floor(drag_width * samplerate))
+        data_L = data[-(math.floor(samplerate * window_secs) + dx): - dx, :]
+        return np.sum((np.dot(np.transpose(np.abs(data_L)), np.abs(data_R))))
+
+    m_s = parfor(calc_m, rng) # calculate the correlation function in parallel
+
+    for dxi in range(len(rng)): #1, math.floor(drag_width * samplerate), step): # should parallelize this part!
+        # if dx % 100 == 0:
+        #    print(dx, "/", math.floor(drag_width * samplerate))
+        dx = rng[dxi]
+        # data_L = data[-(math.floor(samplerate * window_secs) + dx): - dx, :]
+        # m = np.sum((np.dot(np.transpose(np.abs(data_L)), np.abs(data_R)))) # our correlation measure
+        m = m_s[dxi]
+
         corr[dx] = m
         if m > dx_max:
             dx_max = m  # find the max of the correlation measure
