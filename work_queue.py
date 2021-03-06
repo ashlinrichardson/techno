@@ -11,8 +11,6 @@ def err(m):
     print("Error: " + m)
     sys.exit(1)
 
-      
-
 
 class work_queue:
     def __init__(self):
@@ -100,7 +98,5 @@ if __name__ == "__main__":
             ncpu = n_workers
 
     w_q = work_queue()
-
     w_q.jobs = tasks # generally would use add() for each job
-
     w_q.run()
