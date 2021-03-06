@@ -107,3 +107,5 @@ s += " out.wav" # output file
 
 a = os.system(s)
 
+a = os.system("ffmpeg -i out.wav out.mp3") # convert output to mp3 for upload / share
+
