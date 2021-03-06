@@ -35,6 +35,6 @@ https://soundcloud.com/ashrichardson/data-science-mix
 <img src="songs_out/correlation.png" width="650">
 
 ## files:
-* correlation.py calculate correlations between tracks
-* stitch.py use between-tracks correlation to establish ordering. Then locally align transitions and interpolate
-* robo_dj.py: this is the main subrouting
+* **correlation.py** calculate correlations between tracks
+* **stitch.py** use between-tracks correlation to establish ordering. Then locally align transitions and interpolate
+* **robo_dj.py**: main subroutine / entry point
