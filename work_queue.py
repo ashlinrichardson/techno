@@ -11,71 +11,94 @@ def err(m):
     print("Error: " + m)
     sys.exit(1)
 
-args = sys.argv
-if len(args) < 2:
-    err('multicore.py:\nusage: multicore [text file: one sys cmd per line] # init one thread per cpu\nmulticore [text file: one syscmd per line] 1 # init one thread per job')
+class work_queue:
+    self.jobs = []
 
-one_worker_per_job, n_workers = False, None
-if len(args) > 2:
-    one_worker_per_job = True if sys.argv[2] == "1" else False
-    try:
-        if int(sys.argv[2]) > 1:
-            n_workers = int(sys.argv[2])  # workers specified
-    except:
-        pass
+    def __init__(self):
+        self.jobs = []
 
-fn, ncpu = args[1], multiprocessing.cpu_count()
-if not os.path.exists(fn): err('job file: ' + fn.strip() + ' not found')
+    def add(self, job):
+        self.jobs.append(job)
 
-task = open(fn).read().strip().split("\n")
-tasks, n_task = [x.strip() for x in task], len(task)
+    def run(self, ncpu = multiprocessing.cpu_count()):
 
-if one_worker_per_job:
-    ncpu = n_task
-else:
-    if n_workers and n_workers > 1:
-        ncpu = n_workers
+        lock, p_lock = allocate_lock(), allocate_lock() # lock mechanism
+        threads_alive, next_j, j_max = ncpu, 0, n_task - 1
+    
+        # printf with lock
+        def cprint(s):
+            global p_lock
+            p_lock.acquire()
+            print(s)
+            p_lock.release()
+    
+        cprint("nworkers " + str(ncpu))
+    
+        def threadfun(my_id):  # worker thread picks up task
+            global next_j, j_max, lock, threads_alive, jobs
+            job_times = [] # fill this in later
+            while True:
+                lock.acquire()
+                j, next_j = next_j, next_j + 1  # pick up task idx
+                lock.release()
+    
+                if(j > j_max):
+                    threads_alive -= 1  # kill thread if no work
+                    return
+    
+                if jobs[j].strip() == "":  # don't run empty task
+                    continue
+    
+                work = jobs[j].split(";")  # divide task into subtasks?
+                for i in range(0, len(work)):
+                    cprint("worker(" + str(my_id) + "): " + work[i])
+                    os.popen(work[i]).read()
+                    cprint("\tworker(" + str(my_id) + ")")
+    
+        def wait_to_finish():  # sleep a bit?
+            poll_int = .01 # polling is bad, don't do too much
+            while True:
+                time.sleep(poll_int)
+                if(threads_alive == 0):
+                    sys.exit(0)
+    
+        for i in range(0, ncpu):
+            start_new_thread(threadfun, (i, ))
 
-lock, p_lock = allocate_lock(), allocate_lock() # lock mechanism
-threads_alive, next_j, j_max = ncpu, 0, n_task - 1
+        wait_to_finish()
+    
 
-# printf with lock
-def cprint(s):
-    global p_lock
-    p_lock.acquire()
-    print(s)
-    p_lock.release()
 
-cprint("nworkers " + str(ncpu))
+if __name__ == "__main__":
+    args = sys.argv
 
-def threadfun(my_id):  # worker thread picks up task
-    global next_j, j_max, lock, threads_alive, tasks
-    job_times = []
-    while True: 
-        lock.acquire()
-        j, next_j = next_j, next_j + 1  # pick up task idx
-        lock.release()
-	
-        if(j > j_max):
-            threads_alive -= 1  # kill thread if no work
-            return
+    if len(args) < 2:
+        err('multicore.py:\nusage: multicore [text file: one sys cmd per line] # init one thread per cpu\nmulticore [text file: one syscmd per line] 1 # init one thread per job')
 
-        if tasks[j].strip() == "":  # don't run empty task
-            continue
+    one_worker_per_job, n_workers = False, None
 
-        work = tasks[j].split(";")  # divide task into subtasks?
-        for i in range(0, len(work)):
-            cprint("worker(" + str(my_id) + "): " + work[i])
-            os.popen(work[i]).read()
-            cprint("\tworker(" + str(my_id) + ")")
+    if len(args) > 2:
+        one_worker_per_job = True if sys.argv[2] == "1" else False
+        try:
+            if int(sys.argv[2]) > 1:
+                n_workers = int(sys.argv[2])  # workers specified
+        except:
+            pass
 
-def wait_to_finish():  # sleep a bit?
-    poll_int = .01 # polling is bad, don't do too much
-    while True:
-        time.sleep(poll_int)
-        if(threads_alive == 0):
-            sys.exit(0)
+    if not os.path.exists(fn):
+        err('job file: ' + fn.strip() + ' not found')
+    
+    tasks = open(fn).read().strip().split("\n")
+    jobs, n_task = [x.strip() for x in tasks], len(tasks)
 
-for i in range(0, ncpu):
-    start_new_thread(threadfun, (i, ))
-wait_to_finish()
+    if one_worker_per_job:
+        ncpu = n_task
+    else:
+        if n_workers and n_workers > 1:
+            ncpu = n_workers
+
+    w_q = work_queue()
+
+    w_q.jobs = tasks # generally would use add() for each job
+
+    w_q.run()
