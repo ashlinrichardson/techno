@@ -84,7 +84,7 @@ for i in range(len(visited) - 1):
     corr = np.zeros(math.floor(drag_width * samplerate))
 
     dx_max = 0 # shift for local alignment of clip
-    step = 11 # step size for windowed search
+    step = 7 # step size for windowed search
 
     '''
     for dx in range(1, math.floor(drag_width * samplerate), step): # should parallelize this part!
@@ -100,8 +100,8 @@ for i in range(len(visited) - 1):
     rng = range(1, math.floor(drag_width * samplerate), step)
 
     def calc_m(dx):
-        if dx % 100 == 0:
-            print(dx, "/", math.floor(drag_width * samplerate))
+        #if dx % 100 == 0:
+        #    print(dx, "/", math.floor(drag_width * samplerate))
         data_L = data[-(math.floor(samplerate * window_secs) + dx): - dx, :]
         return np.sum((np.dot(np.transpose(np.abs(data_L)), np.abs(data_R))))
 
