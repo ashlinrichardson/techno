@@ -38,7 +38,7 @@ for i in range(len(wavs)):
 	samplerate, data = wavfile.read(f)
 	L1 = data.shape[0]
 
-	for j in range(len(wavs)):
+	for j in range(len(wavs)): # could parallelize over this coord
 		g = wavs[j]
 		print("read", g) # second wav file to read
 		samplerate2, data2 = wavfile.read(g)
