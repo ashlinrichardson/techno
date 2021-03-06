@@ -5,7 +5,12 @@ Taking a number of techno tracks, we:
 * locally align the clips using a sliding window, and finally:
 * interpolate to produce a "continuous" mix. N.b. still working to improve accuracy of the tempo normalization. Improved tempo normalization would improve the quality of transitions
 
+## example usage (tested on Ubuntu and MacOS):
+```
+python3 py/robo_dj.py songs
+```
 **tested on Ubuntu and MacOS**
+
 
 ## result
 Five hours of high-energy music for long coding, driving, sports or study sessions:
@@ -29,9 +34,3 @@ https://soundcloud.com/ashrichardson/data-science-mix
 * correlation.py calculate correlations between tracks
 * stitch.py use between-tracks correlation to establish ordering. Then locally align transitions and interpolate
 * robo_dj.py: this is the main subrouting
-
-## example usage (tested on Ubuntu and MacOS):
-```
-python3 py/robo_dj.py songs
-
-```
