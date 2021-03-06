@@ -14,7 +14,7 @@ python3 py/robo_dj.py songs
 *  **tested on Ubuntu and MacOS**
 * files in songs/ folder are mp3 or m4a format
 * two songs from the larger collection incl. for testing in repo
-* 
+* wav conversion, samplerate normalization, tempo normalization, and local alignment steps are performed with **local parallelism** to take advantage of multicore processors
 
 ## result
 Five hours of high-energy music for long coding, driving, sports or study sessions:
