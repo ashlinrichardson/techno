@@ -87,7 +87,6 @@ for f in files:
     wav_f2 = '"' + wav_dir2 + f[:-3] + 'wav"'
     wav_f3 = '"' + wav_dir3 + f[:-3] + 'wav"'
     print(wav_f2, wav_f3)
-
     if not exists(wav_f3.strip('"')):
         q.add("soundstretch " + wav_f2 + " " + wav_f3 + " -bpm=" + str(bpm))
 q.run()
