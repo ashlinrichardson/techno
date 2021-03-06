@@ -15,6 +15,7 @@ def err(msg):
 
 if len(args) < 2:
     err("robo_dj.py [input directory containing mp3 or m4a files]")
+args[1] = args[1].rstrip().rstrip(sep)
 
 if not os.path.exists(args[1]):
     err("please check input folder")

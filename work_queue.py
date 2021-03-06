@@ -66,7 +66,7 @@ class work_queue:
             while True:
                 time.sleep(poll_int)
                 if(self.threads_alive == 0):
-                    sys.exit(0)
+                    return
     
         for i in range(0, ncpu):
             start_new_thread(threadfun, (i, ))
