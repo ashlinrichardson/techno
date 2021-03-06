@@ -107,17 +107,12 @@ for i in range(len(visited) - 1):
 
     m_s = parfor(calc_m, rng) # calculate the correlation function in parallel
 
-    for dxi in range(len(rng)): #1, math.floor(drag_width * samplerate), step): # should parallelize this part!
-        # if dx % 100 == 0:
-        #    print(dx, "/", math.floor(drag_width * samplerate))
+    for dxi in range(len(rng)):
         dx = rng[dxi]
-        # data_L = data[-(math.floor(samplerate * window_secs) + dx): - dx, :]
-        # m = np.sum((np.dot(np.transpose(np.abs(data_L)), np.abs(data_R)))) # our correlation measure
         m = m_s[dxi]
-
         corr[dx] = m
         if m > dx_max:
-            dx_max = m  # find the max of the correlation measure
+            dx_max = m  # find max of the correlation measure
 
     data_L = data[-( math.floor(samplerate * window_secs) + dx_max): - dx_max, :]
 
