@@ -11,7 +11,7 @@ Taking a number of techno tracks, we:
 Five hours of high-energy music for long coding, driving, sports or study sessions:
 https://soundcloud.com/ashrichardson/data-science-mix
 
-<img src="soundcloud.png" width="650">
+<img src="songs_out/soundcloud.png" width="650">
 
 ## findings
 * Correlation can be used to align techno clips of same tempo for a smooth transition
@@ -20,10 +20,10 @@ https://soundcloud.com/ashrichardson/data-science-mix
 * More complex method required for reliability
 
 ## matrix of correlation between the tracks
-<img src="grid.png" width="650">
+<img src="songs_out/grid.png" width="650">
 
 ## clips aligned for correlation on 3.78s window
-<img src="correlation.png" width="650">
+<img src="songs_out/correlation.png" width="650">
 
 ## files:
 * correlation.py calculate correlations between tracks
