@@ -10,7 +10,8 @@ Taking a number of techno tracks, we:
 python3 py/robo_dj.py songs
 ```
 **Note: tested on Ubuntu and MacOS**
-
+### Assumptions
+* files in songs/ folder are mp3 or m4a format
 
 ## result
 Five hours of high-energy music for long coding, driving, sports or study sessions:
