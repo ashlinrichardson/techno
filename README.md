@@ -1,9 +1,9 @@
 # techno
 Taking a number of techno tracks, we:
 * convert to wav, normalize sample rate and tempo
-* order them using a special correlation measurement
-* locally align the clips using a sliding window, and finally:
-* interpolate to produce a "continuous" mix. N.b. still working to improve accuracy of the tempo normalization. Improved tempo normalization would improve xsition quality
+* **order tracks using a special correlation measurement**
+* **locally align the clips using a sliding window** and finally:
+* **interpolate to produce a "continuous" mix** N.b. still working to improve accuracy of the tempo normalization. Improved tempo normalization would improve xsition quality
 
 ## example usage:
 ```
