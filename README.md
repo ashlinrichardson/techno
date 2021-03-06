@@ -5,8 +5,8 @@ Taking a number of techno tracks, we:
 * locally align the clips using a sliding window, and finally:
 * interpolate to produce a "continuous" mix. N.b. still working to improve accuracy of the tempo normalization. Improved tempo normalization would improve the quality of transitions
 
+**tested on Ubuntu and MacOS**
 
-(225 lines of python code..tested on Ubuntu)
 ## result
 Five hours of high-energy music for long coding, driving, sports or study sessions:
 https://soundcloud.com/ashrichardson/data-science-mix
