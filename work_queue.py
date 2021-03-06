@@ -19,6 +19,9 @@ class work_queue:
     def add(self, job):
         self.jobs.append(job)
 
+    def clear(self):
+        self.jobs = []
+
     # printf with lock
     def cprint(self, s):
         self.p_lock.acquire()
@@ -64,7 +67,7 @@ class work_queue:
             start_new_thread(threadfun, (i, ))
 
         wait_to_finish()
-    
+        self.clear()
 
 
 if __name__ == "__main__":
