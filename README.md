@@ -32,6 +32,6 @@ https://soundcloud.com/ashrichardson/data-science-mix
 
 ## example usage (tested on Ubuntu and MacOS):
 ```
-python3 robo_dj.py songs
+python3 py/robo_dj.py songs
 
 ```
