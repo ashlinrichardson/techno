@@ -106,6 +106,6 @@ for f in files:
 s += " out.wav" # output file
 
 a = os.system(s)
-
+print("convert out.wav to mp3.wav..")
 a = os.system("ffmpeg -i out.wav out.mp3") # convert output to mp3 for upload / share
-
+print("done")
