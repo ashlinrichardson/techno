@@ -4,6 +4,7 @@ import math
 import copy
 import pickle
 import numpy as np
+from parfor import parfor
 from scipy.io import wavfile
 import matplotlib.pyplot as plt
 from scipy.io.wavfile import write
