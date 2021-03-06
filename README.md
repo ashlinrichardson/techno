@@ -5,11 +5,11 @@ Taking a number of techno tracks, we:
 * locally align the clips using a sliding window, and finally:
 * interpolate to produce a "continuous" mix. N.b. still working to improve accuracy of the tempo normalization. Improved tempo normalization would improve the quality of transitions
 
-## example usage (tested on Ubuntu and MacOS):
+## example usage:
 ```
 python3 py/robo_dj.py songs
 ```
-**tested on Ubuntu and MacOS**
+**Note: tested on Ubuntu and MacOS**
 
 
 ## result
