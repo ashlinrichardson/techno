@@ -29,10 +29,10 @@ class work_queue:
         self.p_lock.release()
 
     def run(self, ncpu = multiprocessing.cpu_count()):
-        print("run() queue:")
-        for job in self.jobs:
-            print(job)
-        print("end() queue")
+        #print("run() queue:")
+        #for job in self.jobs:
+        #    print(job)
+        #print("end() queue")
 
         n_task = len(self.jobs)
         self.lock, self.p_lock = allocate_lock(), allocate_lock() # lock mechanism
