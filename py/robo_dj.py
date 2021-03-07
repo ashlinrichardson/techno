@@ -79,7 +79,18 @@ for f in files:
         q.add("sox " + wav_f + ' -r 44100 -b 16 ' + wav_f2)
 q.run()
 
-# step three: adjust bpm
+# step three: detect bpm
+files, bpmf = [x.strip() for x in os.popen("ls -1 " + wav_dir2).readlines()], []
+for f in files:
+    wav_f2 = '"' + wav_dir2 + f[:-3] + 'wav"'
+    bpm_f = wav_f2 + ".bpm"
+    bpmf.append(bpm_f)
+    if not exists(bpm_f):
+        q.add("soundstretch " + wav_f2 + " -bpm > " + bpm_f)
+q.run()
+# parse bpm
+
+# step four: adjust bpm
 wav_dir3 = args[1] + "_wav3" + sep
 if not exists(wav_dir3): os.mkdir(wav_dir3)
 files = [x.strip() for x in os.popen("ls -1 " + wav_dir2).readlines()]
