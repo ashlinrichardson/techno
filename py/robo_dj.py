@@ -80,10 +80,10 @@ for f in files:
 q.run()
 
 # step three: detect bpm
-files, bpmf = [x.strip() for x in os.popen("ls -1 " + wav_dir2).readlines()], []
+files, bpmf, ci = [x.strip() for x in os.popen("ls -1 " + wav_dir2).readlines()], [], 0
 for f in files:
     wav_f2 = '"' + wav_dir2 + f[:-3] + 'wav"'
-    bpm_f = wav_f2 + ".bpm"
+    bpm_f = str(ci) + ".bpm"
     bpmf.append(bpm_f)
     if not exists(bpm_f):
         q.add("soundstretch " + wav_f2 + " -bpm > " + bpm_f)
@@ -103,10 +103,10 @@ for f in files:
 q.run()
 
 # find pairwise correlations between tracks to be stitched
-run("python3 correlate.py " + wav_dir3)
+run("python3 py/correlate.py " + wav_dir3)
 
 # determine ordering from pairwise correlations, then stitch using moving window technique
-run("python3 stitch.py " + wav_dir3)
+run("python3 py/stitch.py " + wav_dir3)
 
 # last step: use sox to concatenate a list of wave files
 files = open("file_list.txt").readlines()
