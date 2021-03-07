@@ -38,9 +38,9 @@ class work_queue:
         n_task = len(self.jobs)
         self.lock, self.p_lock = allocate_lock(), allocate_lock() # lock mechanism
         self.threads_alive, self.next_j, self.j_max = ncpu, 0, n_task - 1
-    
+
         self.cprint("nworkers " + str(ncpu))
-    
+
         def threadfun(my_id):  # worker thread picks up task
             # global next_j, j_max, lock, threads_alive, jobs
             job_times = [] # fill this in later
@@ -48,14 +48,14 @@ class work_queue:
                 self.lock.acquire()
                 j, self.next_j = self.next_j, self.next_j + 1  # pick up task idx
                 self.lock.release()
-    
+
                 if(j > self.j_max):
                     self.threads_alive -= 1  # kill thread if no work
                     return
-    
+
                 if self.jobs[j].strip() == "":  # don't run empty task
                     continue
-    
+
                 work = self.jobs[j].split(";")  # divide task into subtasks?
                 print("work", work)
                 for i in range(0, len(work)):
@@ -67,14 +67,14 @@ class work_queue:
                     #a = os.system(work[i])
                     #self.cprint(a)
                     self.cprint("\tworker(" + str(my_id) + ")")
-    
+
         def wait_to_finish():  # sleep a bit?
             poll_int = .01 # polling is bad, don't do too much
             while True:
                 time.sleep(poll_int)
                 if(self.threads_alive == 0):
                     return
-    
+
         for i in range(0, ncpu):
             start_new_thread(threadfun, (i, ))
 
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     if len(args) < 2:
         err('multicore.py:\nusage:\n\tmulticore [text file: one sys cmd per line] # init one thread per cpu' +
-            '\n\tmulticore [text file: one syscmd per line] 1 # init one thread per job' + 
+            '\n\tmulticore [text file: one syscmd per line] 1 # init one thread per job' +
             '\n\tmulticore [text file: one syscmd per line] 4 # init 4 threads')
 
     one_worker_per_job, n_workers, fn = False, None, args[1]
@@ -102,7 +102,7 @@ if __name__ == "__main__":
 
     if not os.path.exists(fn):
         err('job file: ' + fn.strip() + ' not found')
-    
+
     tasks = open(fn).read().strip().split("\n")
     jobs, n_task = [x.strip() for x in tasks], len(tasks)
 

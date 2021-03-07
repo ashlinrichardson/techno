@@ -49,7 +49,7 @@ for i in range(len(wavs)):
 		# cut out that size from both
 		A = data[-L:, :] # cut from right side of A
 		B = data2[:L, :] # cut from left side of B
-		
+
 		if(A.shape != B.shape):
 			print(L, L1, L2)
 			print(data.shape, data2.shape)

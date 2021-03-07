@@ -37,7 +37,7 @@ for req in reqd: # check each req'd terminal command
 
 def install(cmd): # install a terminal command
     my_os = os.popen("uname").read().strip()
-    
+
     if my_os == 'Linux':
         cmd = 'sudo apt install ' + cmd
     elif my_os == 'Darwin':
