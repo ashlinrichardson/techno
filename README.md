@@ -15,6 +15,7 @@ python3 py/robo_dj.py songs
 * files in songs/ folder are mp3 or m4a format
 * **two songs from the larger collection are included in the repo, for testing**
 * wav conversion, samplerate normalization, tempo normalization, and local alignment steps are performed with **local parallelism** to take advantage of multicore processors
+* Some steps don't re-run if intermediary files already exist: may need to delete intermediary files if you want to reiterate after changing the input data
 
 ## result
 Five hours of high-energy music for long coding, driving, sports or study sessions:
