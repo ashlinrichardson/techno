@@ -42,9 +42,9 @@ https://soundcloud.com/ashrichardson/data-science-mix
 * **work_queue.py**: process a list of system calls in parallel; one worker thread per CPU thread
 
 ## sample input files included:
-* [first track](songs/best_progressive_2019_vol_1_01.mp3)
-* [second track](songs/best_progressive_2019_vol_1_05.mp3)
+* [first track](songs_out/best_progressive_2019_vol_1_01.mp3)
+* [second track](songs_out/best_progressive_2019_vol_1_05.mp3)
 
 ## sample output files generated:
-* [output: continuous mix](songs/out.mp3)
-* [output: transition segment](songs/xsition.mp3)
+* [output: continuous mix](songs_out/out.mp3)
+* [output: transition segment](songs_out/xsition.mp3)
