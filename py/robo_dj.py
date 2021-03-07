@@ -86,9 +86,15 @@ for f in files:
     bpm_f = str(ci) + ".bpm"
     bpmf.append(bpm_f)
     if not exists(bpm_f):
-        q.add("soundstretch " + wav_f2 + " -bpm > " + bpm_f)
+        q.add("soundstretch " + wav_f2 + " -bpm 2>&1 > " + bpm_f)
+    ci += 1
 q.run()
 # parse bpm
+
+avg_bpm = 0.
+for f in bpmf:
+    lines = [x.strip() for x in open(f).readlines()]
+
 
 # step four: adjust bpm
 wav_dir3 = args[1] + "_wav3" + sep
