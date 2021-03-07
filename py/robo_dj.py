@@ -1,4 +1,5 @@
-bpm = 127 # should have an arg for this!
+bpm = 127 # should have an arg for this! NEED OPTION TO SET BPM!!
+# ALSO NEED OPTION TO SET NUMBER OF BEATS WIDE: WINDOW 1, WINDOW 2, SLIDE WINDOW..
 
 import os
 import sys
