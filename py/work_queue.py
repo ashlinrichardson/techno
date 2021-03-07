@@ -4,6 +4,7 @@ each worker picks up one job, completes it, picks up another until queue is empt
 import os
 import sys
 import time
+import subprocess
 import multiprocessing
 from _thread import allocate_lock, start_new_thread
 
@@ -56,9 +57,15 @@ class work_queue:
                     continue
     
                 work = self.jobs[j].split(";")  # divide task into subtasks?
+                print("work", work)
                 for i in range(0, len(work)):
                     self.cprint("worker(" + str(my_id) + "): " + work[i])
-                    os.popen(work[i]).read()
+                    #pp = subprocess.Popen(work[i].split())
+                    #pp.wait()
+                    result = os.popen(work[i]).read()
+                    open(str(my_id) + "_" + str(j) + ".txt", "wb").write(result.encode())
+                    #a = os.system(work[i])
+                    #self.cprint(a)
                     self.cprint("\tworker(" + str(my_id) + ")")
     
         def wait_to_finish():  # sleep a bit?
