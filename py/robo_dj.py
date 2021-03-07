@@ -78,7 +78,7 @@ for f in files:
     if not exists(wav_f2.strip('"')):
         q.add("sox " + wav_f + ' -r 44100 -b 16 ' + wav_f2)
 q.run()
-'''
+
 # step three: detect bpm
 files, bpmf, ci = [x.strip() for x in os.popen("ls -1 " + wav_dir2).readlines()], [], 0
 for f in files:
@@ -86,7 +86,8 @@ for f in files:
     bpm_f = str(ci) + ".bpm"
     bpmf.append(bpm_f)
     if not exists(bpm_f):
-        q.add("soundstretch " + wav_f2 + " -bpm &> " + bpm_f)
+        cmd = ("soundstretch " + wav_f2 + " -bpm > " + bpm_f + " 2>&1")
+        q.add(cmd)
     ci += 1
 q.run()
 
@@ -97,13 +98,17 @@ for f in bpmf:
     for line in lines:
         w = line.split()
         print(w)
-        if w[0] == 'Detected' and w[1] == 'BPM' and w[2] == 'rate':
-            avg_bpm += float(w[3])
-            n_bpm += 1
+        try:
+            if w[0] == 'Detected' and w[1] == 'BPM' and w[2] == 'rate':
+                avg_bpm += float(w[3])
+                n_bpm += 1
+        except:
+            pass
 
 avg_bpm /= n_bpm
 open("avg.bpm", "wb").write((str(avg_bpm)).encode())
-'''
+bpm = avg_bpm
+
 # step four: adjust bpm
 wav_dir3, ci = args[1] + "_wav3" + sep, 0
 if not exists(wav_dir3): os.mkdir(wav_dir3)
@@ -113,7 +118,7 @@ for f in files:
     wav_f3 = '"' + wav_dir3 + f[:-3] + 'wav"'
     print(wav_f2, wav_f3)
     if not exists(wav_f3.strip('"')):
-        q.add("soundstretch " + wav_f2 + " " + wav_f3 + " -bpm=" + str(bpm) + " > " + bpm_f)
+        q.add("soundstretch " + wav_f2 + " " + wav_f3 + " -bpm=" + str(bpm) + " > " + bpm_f + " 2>&1")
     ci += 1
 q.run()
 

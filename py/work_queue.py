@@ -63,7 +63,7 @@ class work_queue:
                     #pp = subprocess.Popen(work[i].split())
                     #pp.wait()
                     result = os.popen(work[i]).read()
-                    open(str(my_id) + "_" + str(j) + ".txt", "wb").write(result.encode())
+                    # open(str(my_id) + "_" + str(j) + ".txt", "wb").write(result.encode())
                     #a = os.system(work[i])
                     #self.cprint(a)
                     self.cprint("\tworker(" + str(my_id) + ")")
