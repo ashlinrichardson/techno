@@ -13,6 +13,18 @@ file_list = open("file_list.txt", "wb") # record files to merge
 wavs = [x.strip() for x in os.popen("ls -1 " + args[1]).readlines()]
 a = os.system("rm tmp*.wav") # clean up intermediary files
 
+bpm = float(open("avg.bpm").read().strip())
+
+window_secs = 3.78  # window size for comparison: need to scale window size for bpm
+drag_width = 3.78 * 4  #  3.78 * 4 # how far to drag the window!
+
+mpb = 1. / bpm # minutes per beat
+spb = 60. / bpm # seconds per beat
+
+window_secs = 8 * spb
+
+drag_width = window_secs * 4 # make this factor adjustable
+
 d = pickle.load(open("grid.pickle", "rb")) # grid of correlations from dot.py
 plt.imshow(d)
 plt.savefig("grid.png") # plot the correlations
@@ -63,8 +75,7 @@ print("len(visited)", len(visited))
 if len(visited) != len(wavs):
     print("err"); sys.exit(1)
 
-window_secs = 3.78  # window size for comparison: need to scale window size for bpm
-drag_width = 3.78 * 4  #  3.78 * 4 # how far to drag the window!
+
 
 start = 0
 data, data2, samplerate, samplerate2 = None, None, None, None
