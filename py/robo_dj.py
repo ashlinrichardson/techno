@@ -1,5 +1,6 @@
 bpm = 127 # should have an arg for this! NEED OPTION TO SET BPM!!
 # ALSO NEED OPTION TO SET NUMBER OF BEATS WIDE: WINDOW 1, WINDOW 2, SLIDE WINDOW..
+# NEED AN OPTION FOR WAV START...
 
 import os
 import sys
@@ -57,10 +58,14 @@ def install(cmd): # install a terminal command
 for req in to_install: install(req)  # install required command
 
 # step one: convert to wav
+files = None
 q = work_queue()
 wav_dir = args[1] + "_wav" + sep
-if not exists(wav_dir): os.mkdir(wav_dir)
-files = [x.strip() for x in os.popen("ls -1 " + args[1]).readlines()]
+if not exists(wav_dir):
+    os.mkdir(wav_dir)
+    files = [x.strip() for x in os.popen("ls -1 " + args[1]).readlines()]
+else:
+    files = [x.strip() for x in os.popen("ls -1 " + wav_dir).readlines()]
 
 for f in files: # convert each file to wav, if not already done!
     wav_f = '"' + wav_dir + f[:-3] + 'wav"'
