@@ -35,8 +35,8 @@ https://soundcloud.com/ashrichardson/data-science-mix
 <img src="songs_out/correlation.png" width="650">
 
 ## files:
+* **robo_dj.py**: main subroutine / entry point
 * **correlation.py**: calculate correlations between tracks
+* * **parfor.py**: parallel for loop that runs a function in parallel on an array of inputs
 * **stitch.py**: use above correlations to establish ordering, then locally align transitions and interpolate
 * **work_queue.py**: process a list of system calls in parallel; one worker thread per CPU thread
-* **parfor.py**: parallel for loop that runs a function in parallel on an array of inputs
-* **robo_dj.py**: main subroutine / entry point
