@@ -40,3 +40,8 @@ https://soundcloud.com/ashrichardson/data-science-mix
 * **parfor.py**: parallel for loop that runs a function in parallel on an array of inputs
 * **stitch.py**: use above correlations to establish ordering, then locally align transitions and interpolate
 * **work_queue.py**: process a list of system calls in parallel; one worker thread per CPU thread
+
+## sample input/ output files included:
+* [songs/best_progressive_2019_vol_1_01.mp3](first track)
+* [songs/best_progressive_2019_vol_1_05.mp3](second track)
+
