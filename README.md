@@ -20,8 +20,9 @@ python3 py/robo_dj.py songs
 ## result
 Five hours of high-energy music for long coding, driving, sports or study sessions:
 https://soundcloud.com/ashrichardson/data-science-mix
-
 <img src="songs_out/soundcloud.png" width="650">
+### 2023 Version
+[https://music.youtube.com/watch?v=FXsyvHnT94U&list=MLPT](https://music.youtube.com/watch?v=FXsyvHnT94U&list=MLPT)
 
 ## findings
 * Correlation can be used to align techno clips of same tempo for a smooth transition
