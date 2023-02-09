@@ -34,7 +34,7 @@ def is_installed(cmd):
 
 for req in reqd: # check each req'd terminal command
     if not is_installed(req):
-        req = "soundtouch" if req == "soundstretch" else req
+        # req = "soundtouch" if req == "soundstretch" else req
         to_install.append(req) # soundstretch command lives in soundtouch
 
 def install(cmd): # install a terminal command
